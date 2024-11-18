@@ -1,5 +1,6 @@
 import numpy as np
 import streamlit as st
+import time
 # Create state mappings dynamically
 states = {}
 states_i = {}
@@ -64,6 +65,7 @@ if st.button("Generate Tweet",type="primary"):
                 flag=False
             except:
                 flag=True
+            time.sleep(3)
         
             
     with st.container(border=True):
