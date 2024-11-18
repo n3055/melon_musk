@@ -1,6 +1,4 @@
 import numpy as np
-from collections import defaultdict
-import random
 import streamlit as st
 # Create state mappings dynamically
 states = {}
@@ -58,12 +56,12 @@ start_word = st.text_input("Start word","The")
 t_len = st.number_input("Enter the length of the tweet",value=30)
 # Replace with any starting word from your dataset
 if st.button("Generate Tweet",type="primary"):
-    with st.container(border=True):
-        flag = True
-        while flag:
-            try:
-                st.write('**'+generate_tweet(start_word, length=t_len)+'**')
-                flag=False
-            except:
-                flag=True
-
+    with st.spinner("Generating Tweets.."):
+        with st.container(border=True):
+            flag = True
+            while flag:
+                try:
+                    st.write('**'+generate_tweet(start_word, length=t_len)+'**')
+                    flag=False
+                except:
+                    flag=True
