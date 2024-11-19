@@ -1,12 +1,10 @@
 import numpy as np
 import streamlit as st
 import time
-# Create state mappings dynamically
 states = {}
 states_i = {}
 i = 0
 
-# Read the tweets and build the state mappings
 with open("tweets1959.txt", "r", encoding="utf-8") as twt:
     lines = twt.readlines()
     for line in lines:
@@ -17,11 +15,10 @@ with open("tweets1959.txt", "r", encoding="utf-8") as twt:
                 states_i[i] = word
                 i += 1
 
-# Dynamically determine matrix size
 num_states = len(states)
 transition_mat = np.zeros((num_states, num_states))
 
-# Populate the transition matrix
+
 with open("tweets1959.txt", "r", encoding="utf-8") as twt:
     lines = twt.readlines()
     for line in lines:
@@ -29,13 +26,11 @@ with open("tweets1959.txt", "r", encoding="utf-8") as twt:
         for j in range(len(words) - 1):
             transition_mat[states[words[j]], states[words[j + 1]]] += 1
 
-# Normalize the transition matrix
 for k in range(num_states):
     row_sum = np.sum(transition_mat[k])
     if row_sum > 0:
         transition_mat[k] /= row_sum
 
-# Generate text using the Markov model
 def generate_tweet(start_word, length=10):
     if start_word not in states:
         raise ValueError("Start word not found in the states.")
@@ -51,11 +46,9 @@ def generate_tweet(start_word, length=10):
     
     return " ".join(generated_words)
 
-# Example usage
 st.header("Melon Musk")
 start_word = st.text_input("Start word","The")
 t_len = st.number_input("Enter the length of the tweet",value=30)
-# Replace with any starting word from your dataset
 if st.button("Generate Tweet",type="primary"):
     with st.spinner("Generating Tweet.."):
         flag = True
